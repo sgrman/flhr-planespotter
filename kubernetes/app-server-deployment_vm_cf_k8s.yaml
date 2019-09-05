@@ -69,3 +69,22 @@ spec:
           serviceName: planespotter-svc
           servicePort: 80
 
+containers:
+      - name: postgres
+        image: postgres
+        ports:
+        - containerPort: 3306
+          name: postgres
+        volumeMounts:
+        - name: postrgres-vol
+          mountPath: /var/lib/postgres-me
+  volumeClaimTemplates:
+  - metadata:
+      name: postgres
+    spec:
+      accessModes: [ "ReadWriteOnce" ]
+      storageClassName: "thin"
+      resources:
+        requests:
+          storage: 20Gi
+
